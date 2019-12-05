@@ -1,15 +1,19 @@
 require_relative "next_moves"
 
+$board = []
+
 class Knight_Moves
-  attr_accessor :current
-  def initialize
+  attr_accessor :current_chain
+  def initialize(current_coord=[0,3],target_coord=[2,5])
     @board = Array.new(8) { |r| r = Array.new(8) { |c| c = "| #{r+1}#{c+1} " } }
-    @current_coord = [0,3]
-    @current = Next_Moves.new(@current_coord)
-    @current.assign_next_moves 
+    $board = Array.new(8) { |r| r = Array.new(8) { |c| c = [r,c] } }
+    @current_coord = current_coord 
+    @target_coord = target_coord
+    @current_chain = Next_Moves.new(@current_coord,@target_coord)
+    @current_chain.assign_next_moves 
   end 
 
-  def print_board(current=nil)
+  def print_board(current=@current_coord)
     @board.each do |r|
       r.each do |c|
         if c == current
@@ -22,7 +26,15 @@ class Knight_Moves
       p "-"*8
     end 
   end 
+
 end 
 
 a = Knight_Moves.new
-p a.current
+
+
+
+
+
+
+
+ 
